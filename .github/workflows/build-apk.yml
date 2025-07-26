@@ -22,29 +22,25 @@ jobs:
         distribution: 'temurin'
         cache: 'gradle'
         
-    - name: List files
-      run: ls -la
-      
-    - name: Check Java version
+    - name: Debug information
       run: |
+        echo "Current directory: $(pwd)"
+        echo "Files in current directory:"
+        ls -la
+        echo "Java version:"
         java -version
         echo "JAVA_HOME: $JAVA_HOME"
         
     - name: Grant execute permission for gradlew
       run: |
+        echo "Checking gradlew file:"
         ls -la gradlew
+        echo "Setting execute permission:"
         chmod +x ./gradlew
+        echo "Verifying permission:"
         ls -la gradlew
-      
-    - name: Cache Gradle packages
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
+        echo "Testing gradlew:"
+        ./gradlew --version
       
     - name: Build Debug APK
       run: ./gradlew assembleDebug
