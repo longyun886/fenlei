@@ -1,0 +1,9 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Gradle wrapper scripts should use LF
+gradlew text eol=lf
+gradlew.bat text eol=crlf
+
+# Shell scripts should use LF
+*.sh text eol=lf 
