@@ -8,24 +8,25 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: set up JDK 11
-      uses: actions/setup-java@v4
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
+      - uses: actions/checkout@v4
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: |
-        # 清理可能存在的错误 Java home 设置
-        unset ORG_GRADLE_PROJECT_org_gradle_java_home
-        unset ORG_GRADLE_PROJECT_org.gradle.java.home
-        # 使用系统默认的 Java
-        ./gradlew build
+      - name: Remove Gradle Java Home
+        run: |
+          echo "ORG_GRADLE_PROJECT_org_gradle_java_home and org.gradle.java.home will be unset"
+          unset ORG_GRADLE_PROJECT_org_gradle_java_home
+          unset ORG_GRADLE_PROJECT_org.gradle.java.home
+          rm -f ~/.gradle/gradle.properties
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
