@@ -13,6 +13,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Debug - List files
+      run: |
+        pwd
+        ls -la
+        echo "Checking for gradlew:"
+        ls -la gradlew* || echo "No gradlew files found"
     - name: set up JDK 11
       uses: actions/setup-java@v4
       with:
