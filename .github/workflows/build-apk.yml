@@ -30,7 +30,12 @@ jobs:
         echo "Java version:"
         java -version
         echo "JAVA_HOME: $JAVA_HOME"
-        echo "Checking gradlew:"
+        
+    - name: Make gradlew executable
+      run: |
+        echo "Setting execute permission for gradlew:"
+        chmod +x ./gradlew
+        echo "Verifying permissions:"
         ls -la gradlew
         echo "Testing gradlew:"
         ./gradlew --version
