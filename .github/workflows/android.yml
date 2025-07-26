@@ -19,13 +19,13 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-    - name: Set JAVA_HOME
-      run: |
-        echo "JAVA_HOME=$JAVA_HOME"
-        echo "JAVA_HOME_NO_TRAILING_SLASH=${JAVA_HOME%/}" >> $GITHUB_ENV
-        export JAVA_HOME="${JAVA_HOME%/}"
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: |
+        # 清理可能存在的错误 Java home 设置
+        unset ORG_GRADLE_PROJECT_org_gradle_java_home
+        unset ORG_GRADLE_PROJECT_org.gradle.java.home
+        # 使用系统默认的 Java
+        ./gradlew build
