@@ -30,14 +30,10 @@ jobs:
         echo "Java version:"
         java -version
         echo "JAVA_HOME: $JAVA_HOME"
-        
-    - name: Download Gradle Wrapper
-      run: |
-        echo "Downloading Gradle Wrapper..."
-        curl -s https://get.sdkman.io | bash
-        source "$HOME/.sdkman/bin/sdkman-init.sh"
-        sdk install gradle 8.5
-        gradle wrapper
+        echo "Checking gradlew:"
+        ls -la gradlew
+        echo "Testing gradlew:"
+        ./gradlew --version
         
     - name: Build Debug APK
       run: ./gradlew assembleDebug
